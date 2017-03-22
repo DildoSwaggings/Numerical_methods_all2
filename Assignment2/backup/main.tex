@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%If you want to title your bold things something different just make another thing exactly like this but replace "problem" with the name of the thing you want, like theorem or lemma or whatever
+ 
+\begin{document}
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+%Good resources for looking up how to do stuff:
+%Binary operators: http://www.access2science.com/latex/Binary.html
+%General help: http://en.wikibooks.org/wiki/LaTeX/Mathematics
+%Or just google stuff
+ 
+\title{Numerical Methods Assignment 2}
+\author{Thom Oosterhuis, 2563038}
+\maketitle
+ 
+\section{Exercise 1}
+The function Oosterhuis\_asssignment1\_exercise1\_1() calculates an approximation for the zero of a function using the Secant method. The mandatory input is a function and two start points for $x$. Optional input is the maximum number of iterations and the desired precision. The precision is measured as following: $\left| f(x_n)-f(x_{n-1}) \right|$. When the desired precision is lower this difference, the function will stop. Default values for the maximum number of iterations respectively the desired precision is $21$ and $0.0001$ since in general this will give quite good approximations for the root of a function.
+The output of the function is a vector containing all the values of $x_i$, so in general the length of this vector is equal to the maximum number of iterations plus two, since the two start values are the first two elements of the vector. When the number of iterations is less than the maximum number of iterations, for example when the desired precision is reach sooner, the function will adjust the length of the vector by deleting the last elements being zero. When the last two elements of the vector are equal (up to four decimals), the last elements will be deleted as well.
+The Second method takes a line through the points $(x_1,f(x_1)),(x_2),f(x_2))$ and takes the point  $x_3$  where this line cuts the y-asis as the next point in the iteration.
+As example we will take $f(x)=x^2-4)$, $x_1 = 0, x_2=3$, we take the defaults for the optional input. By the mean value theorem we know there exists a root for $f(x)$ in this interval. The function will calculate $f(0)$ and $f(4)$ and will see the difference between them is bigger than the desired precision, so it calculate $x_3$ using the Secant method and add $x_3$ to the vector. This will go on until the desired precision is met, and we see the output vector contains seven elements, meaning that after five iterations the desired precision was met.
+We calculate the rate of convergence using $p \approx \frac{\ln{\frac{x_{n+1}-\alpha}{x_n-\alpha}}}{\ln{\frac{x_{n}-\alpha}{x_{n-1}\alpha}}}$. This is done by the function Oosterhuis\_asssignment1\_exercise1\_3() that takes a vector of iterations as produced by the function for the Secant method Oosterhuis\_asssignment1\_exercise1\_1() and a 'real' solution for the root of a function. The function returns an approximation for the order of convergence of a method. Oosterhuis\_asssignment1\_exercise1\_2() is a function for the newton's methods that is bases on the function on blackboard but instead returns a vector with iterations. For the same function as in the example before the order of convergence for both these methods was computed. The results is: $p_{secant}\approx 0.5 + 0.7i, p_newton \approx 1.98.$
+
+%
+%%5:
+%
+An advantage of the Secant method if it doesn't require the derivate of a function. This can result in a faster algorithm is some cases. The Secant does have a lower rate of convergence than Newton's methods as shown above on the other hand.
+
+\section{Exercise 2}
+
+
+\begin{problem}{x.yz}
+Statement of problem goes here
+\end{problem}
+ 
+\begin{proof}
+Proof goes here. Repeat as needed
+\end{proof}
+
+\end{document}
