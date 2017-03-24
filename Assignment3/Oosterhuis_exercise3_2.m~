@@ -18,15 +18,16 @@ else
     N = N / 2
     y_even = Oosterhuis_exercise3_2(normal_or_inverse,vector_x_even)
     y_odd = Oosterhuis_exercise3_2(normal_or_inverse,vector_x_odd)
-    omega = exp(-2 * pi * 1i / N) .^ (0:N-1)' 
-    %z = d .* y_bottom;
-    %y = [ y_top + z , y_top - z ];
-    y = [ y_odd + omega .* y_even; y_odd - omega .* y_even ]
-    %omega = exp((-2*pi*1i)/N)
-    %omega_vector = omega * ones(N,1)
-    %y = [Oosterhuis_exercise3_2(normal_or_inverse,vector_x_even) + omega_vector * Oosterhuis_exercise3_2(normal_or_inverse,vector_x_odd);Oosterhuis_exercise3_2(normal_or_inverse,vector_x_even) - omega_vector * Oosterhuis_exercise3_2(normal_or_inverse,vector_x_odd)] 
+    omega = exp(-2 * pi * 1i / n) .^ (0:N-1);
+    z = d .* y_bottom;
+    y = [ y_top + z , y_top - z ];
+    y = [ y_odd + omega .* y_even; y_odd
+    omega = exp((-2*pi*1i)/N)
+    omega_vector = omega * ones(N,1)
+    y = [Oosterhuis_exercise3_2(normal_or_inverse,vector_x_even) + omega_vector * Oosterhuis_exercise3_2(normal_or_inverse,vector_x_odd);Oosterhuis_exercise3_2(normal_or_inverse,vector_x_even) - omega_vector * Oosterhuis_exercise3_2(normal_or_inverse,vector_x_odd)] 
     
-       
-    end
+end
+
+
 end
 
