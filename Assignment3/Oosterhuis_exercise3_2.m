@@ -8,7 +8,7 @@ function [ y ] = Oosterhuis_exercise3_2( normal_or_inverse,vector_x )
 if normal_or_inverse == 0
 N = length(vector_x)
 %omega = exp((-2*pi*1i)/N)
-%recurtion:
+%recursion:
 if N==1
     %b = -1i*(2 * pi * k * (n-1))/N
     y = vector_x
@@ -47,7 +47,5 @@ elseif normal_or_inverse == 1
         %omega = exp((-2*pi*1i)/N)
     end
 end
-
-
 end
 
