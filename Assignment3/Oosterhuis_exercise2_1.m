@@ -27,6 +27,8 @@ for i=1:number_of_points-1
     end
     A = A + A_i
 end
+%USE INTERPOLATION!
+
 %calculate the center of mass
 %HOW IS THIS DEFINED???
 

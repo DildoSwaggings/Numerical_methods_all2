@@ -2,10 +2,11 @@ function [ output_args ] = Oosterhuis_exercise3_1(normal_or_inverse,vector_x)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 %using the internet: https://www.youtube.com/watch?v=mkGsMWi_j4Q
+%test function: 
 
-%Oosterhuis_exercise3_1() calculates both the discrete Fourier transform of
-%a vector and its inverse Fourier transform. Input is a vector of length
-%2^n and a bariable eehivh indicates whether the normal or inverse
+%Oosterhuis_exercise3_1() calculates the discrete Fourier transform of
+%a vector or its inverse Fourier transform. Input is a vector of length
+%2^n and a variable which indicates whether the normal or inverse
 %transform needs to be calculated
 N = length(vector_x)
 %determine period => HOW??? ASK TA,, is it necesary?
