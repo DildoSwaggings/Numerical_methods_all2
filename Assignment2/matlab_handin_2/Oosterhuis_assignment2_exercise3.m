@@ -1,4 +1,4 @@
-function x = 
+function x = Oosterhuis_assignment2_exercise3(vector_complex_numbers,vector_discretization,iteration_steps)
 %uitleg
 %
 %giving default value to non given optional user input:
