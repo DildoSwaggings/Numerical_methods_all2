@@ -3,13 +3,13 @@ function [ y ] = Oosterhuis_assignment3_exercise3_4(vector_fft)
 %
 %define variables
 N = length(vector_fft)
+nyquist_limit = N/2
 %make vector with magnitudes of complex numbers in vector_fft
-magnitudes = zeros(N,1)
-for j=1:N
+magnitudes = zeros(nyquist_limit,1)
+for j=1:nyquist_limit
     magnitudes(j) = (real(vector_fft(j))^2 + imag(vector_fft(j))^2)^(0.5)
 end
 %make frequencies one sided
-nyquist_limit = N/2
 magnitudes_one_sided = magnitudes(1:nyquist_limit) .*2
 %devide by number of samples
 magnitudes_final = magnitudes_one_sided ./ N
