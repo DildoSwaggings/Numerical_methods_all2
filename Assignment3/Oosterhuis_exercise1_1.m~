@@ -1,15 +1,23 @@
 function [vector_lambda_new,vector_c,residue_vector_lambda_new] = Oosterhuis_exercise1_1(data,vector_initial_guesses)
 %uitleg
-%function takes data (form = 1000x2 matrix: column1 = +
-%linespace(0,1000,10000), column2=y) and a row vector of n
+%function takes data (form = nx2 matrix: column1 = 
+%linespace(0,n,10*n), column2=y) and a row vector of m
 %initial guesses for the exponents lambda_i.
-%function output is row vector with n values of lambda_i's, a vector n with
-%values for C and the residue (sum of square of elementswise residues).
+%function output is 1) row vector vector_lambda_new with m values of 
+%lambda_i's, 2) a vector vector_c with values for the C_i's
+%and 3) a number which is the residue of solution (sum of square of 
+%elementswise residues).
 %Graphic output is a plot of the data and a function f that is an
 %approximation of a function of the data, computed using least square
 %method.
 %
-%read data and make independent and dependent vector
+%Using initial guesses for lambda, Oosterhuis_assignment3_exercise1()
+%calculates values for vector_c such that A * C = Y, where A
+%is n*m matrix with elements exp(lambda(m)*x(n), C is vector of constants
+%and Y is dependent variables of dataset. Using this C, new values are
+%calculated for lambdas such that sum of squares of differences between 
+
+%read data and make vector of independent and dependent variables
 vector_x = data(1:length(data))' %independent variables
 vector_y = data(1+length(data):2*length(data))' %dependent variables
 
@@ -19,57 +27,41 @@ plot(vector_x,vector_y,'.')
 hold on
  
 %use least sqaure method
-%data_matrix * [B;C] = vector_lambda
-% A * x = b => x = inv(A' * A) * A' * b, or if A is not of full rank, use pseudo inverse: x = pinv(A) * b
- 
 row_vector_lambda = vector_initial_guesses
 vector_c = zeros(1,length(row_vector_lambda))
 
 %
-%BY TEACHER: make verything as a function of lambda, this replaces the
-%definitons above of A,vector_c,vector_residue
-%vector_x is column vector, lambda is row vector
+%make matrix A_func, vector_c_func, vector_residue_func and residue_func 
+%to calculate as a function of lambda respectively a matrix A, vector_c, 
+%vector of elementswise difference between solution and data and a number 
+%that sums the squares of these difference.
 %functions
 A_func=@(lambda) exp(vector_x*lambda);
 vector_c_func=@(lambda) A_func(lambda) \ vector_y
 vector_residue_func =@(lambda) A_func(lambda) * vector_c_func(lambda) - vector_y
 residue_func = @(lambda) sum(vector_residue_func(lambda).^2)    
-%%vector_lambda_new = fminsearch(residue,row_vector_lambda)
-%use above functions and compute vector_lambda_new with new values based on
+
+%use above defined functions to compute vector_lambda_new with new values based on
 %vector_c and least square method
-A = A_func(row_vector_lambda) %length(data)*length(row_vector_lambda) matrix
+A = A_func(row_vector_lambda) %length(data)*length(row_vector_lambda) matrix with elements exp(lambda(m)*x(n)
+%compute c using A and vector_y, using initial guesses for lambdas
 vector_c = vector_c_func(row_vector_lambda)
-residue_initial_lambda = residue_func(row_vector_lambda)
+%using vector_c, compute new lambdas, such that residue (is sum of squared
+%elementswise differences) is minimal
 vector_lambda_new = fminsearch(residue_func,row_vector_lambda)
-%compute new minimalized residue
+%compute new minimalized residue, using new lambdas
 residue_vector_lambda_new = residue_func(vector_lambda_new)
+%compute A * vector_C, using new lambdas
+solution = A_func(vector_lambda_new) * vector_c_func(vector_lambda_new)
 
-
-solution = A_func(vector_lambda_new) * vector_c_func(vector_lambda_new) %(row_vector_lambda)
-
-%plotting, continuing from plot data at beginning of function
+%plotting, continuing from plot of data at beginning of function
+%plot solution against independent variable x
 plot(vector_x,solution)
 hold off
-
-%plot(vector_x,vector_y)
-%hold off
-%
-%beta_hat = inv(matrix' * matrix) * matrix' * data(2) %CHECK THIS
- 
-%x=linspace(0,max(data(1),100)
-%for i=1:length(beta_hat)
-%   plot(beta_hat(i,1) + beta_hat(2)*exp(vector_lambda(i) * x(i)
-%    hold on
-%end
-%hold off
- 
-% calculate corresponding residue
-%vector_residu = zeros(length(data)
-%for j=1:length(data)
-%    vector_residu(j) = beta_hat(j) - data(j)
-vector_lambda_new
-vector_c
-residue_vector_lambda_new
+vector_c_func(vector_lambda_new)
 %testinput: Oosterhuis_exercise1_1(data_test,[-2,-1.5,-2])
-
+%example input:
+%Oosterhuis_exercise1_1(data3,[0.1,0.2,0.3,-0.2]) %note the negative lambda
+%Oosterhuis_exercise1_1(data2,[0.1,0.2,0.3])
+%Oosterhuis_exercise1_1(data1,[0.1,0.2])
 end
